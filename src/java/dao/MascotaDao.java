@@ -8,6 +8,8 @@ package dao;
 import Utilitarios.HibernateUtil;
 import entidades.Mascota;
 import interfaces.IMascota;
+import java.util.ArrayList;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -18,14 +20,30 @@ import org.hibernate.Transaction;
 public class MascotaDao implements IMascota{
 
     @Override
-    public void guardarMascota(Mascota mascota) {
+    public boolean guardarMascota(Mascota mascota) {
+        boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         
-        sesion.save(mascota);
-        transaccion.commit();
+        try {
+            sesion.save(mascota);
+            transaccion.commit();
+        } catch (Exception e) {
+            respuesta = false;
+        }
         
         sesion.close();
+        return respuesta;
     }
+
+    @Override
+    public ArrayList<Mascota> listarMascota() {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        ArrayList<Mascota> milista = new ArrayList<>();
+        Query query = sesion.createQuery("from Mascota");
+        milista = (ArrayList<Mascota>)query.list();
+        return milista;
+    }
+    
     
 }
