@@ -6,8 +6,8 @@
 package dao;
 
 import Utilitarios.HibernateUtil;
-import entidades.Mascota;
-import interfaces.IMascota;
+import entidades.Personal;
+import interfaces.IPersonal;
 import java.util.ArrayList;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,16 +17,16 @@ import org.hibernate.Transaction;
  *
  * @author Juan Carlos
  */
-public class MascotaDao implements IMascota{
+public class PersonalDao implements IPersonal{
 
     @Override
-    public boolean guardarMascota(Mascota mascota) {
+    public boolean guardarPersonal(Personal personal) {
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         
         try {
-            sesion.save(mascota);
+            sesion.save(personal);
             transaccion.commit();
         } catch (Exception e) {
             respuesta = false;
@@ -37,23 +37,24 @@ public class MascotaDao implements IMascota{
     }
 
     @Override
-    public ArrayList<Mascota> listarMascota() {
+    public ArrayList<Personal> listarPersonal() {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        ArrayList<Mascota> milista = new ArrayList<>();
-        Query query = sesion.createQuery("from Mascota");
-        milista = (ArrayList<Mascota>)query.list();
+        ArrayList<Personal> milista = new ArrayList<>();
+        Query query = sesion.createQuery("from Personal");
+        milista = (ArrayList<Personal>)query.list();
         sesion.close();
         return milista;
+        
     }
 
     @Override
-    public boolean eliminarMascota(Mascota mascota) {
+    public boolean eliminarPersonal(Personal personal) {
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         
         try {
-            sesion.delete(mascota);
+            sesion.delete(personal);
             transaccion.commit();
             respuesta=true;
         } catch (Exception e) {
@@ -64,13 +65,13 @@ public class MascotaDao implements IMascota{
     }
 
     @Override
-    public boolean actualizarMascota(Mascota mascota) {
+    public boolean actualizarPersonal(Personal personal) {
         boolean respuesta = true;
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction transaccion = sesion.beginTransaction();
         
         try {
-            sesion.update(mascota);
+            sesion.update(personal);
             transaccion.commit();
             respuesta=true;
         } catch (Exception e) {

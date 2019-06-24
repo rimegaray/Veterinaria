@@ -24,10 +24,10 @@ public class MascotaBean {
     private Mascota mascota ;
 
     public MascotaBean() {
-        mascota = new Mascota();
+        this.mascota = new Mascota();
     }
     
-    public Mascota getMascota() {
+    public   Mascota getMascota() {
         return mascota;
     }
 
@@ -39,7 +39,7 @@ public class MascotaBean {
         MascotaDao dao = new MascotaDao();
         boolean respuesta = dao.guardarMascota(mascota);
         if(respuesta){
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "asdsd", "qweqwe"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "qweqwe"));
         }else{
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo registrar"));
         }
@@ -53,14 +53,34 @@ public class MascotaBean {
         return milista;
     }
     
+    public String eliminar(){
+        MascotaDao dao = new MascotaDao();
+        boolean respuesta = dao.eliminarMascota(mascota);
+        if(respuesta){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "asdaaaa"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo eliminar"));
+        }
+        return "/RegistroMascota";
+    }
+    
+    public String actualizar(){
+        MascotaDao dao = new MascotaDao();
+        boolean respuesta = dao.actualizarMascota(mascota);
+        System.out.println(respuesta);
+        if(respuesta){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Correcto", "eee"));
+        }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Error", "No se pudo actualizar"));
+        }
+        return "/RegistroMascota";
+    }
+    
     public String limpiar(){
         return "/RegistroMascota";
     }
     
-    public String eliminar(){
-        
-        return "/RegistroMascota";
-    }
+    
     
     public void refrescar(){
         

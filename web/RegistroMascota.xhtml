@@ -14,80 +14,88 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <body>
-        <p:growl id="msj" autoUpdate="true" />
-        <div align="center">
-            <h:form id="formMascota">
-                <p:panel id="panelMascota" style="width: 40%">
-                    <f:facet name="header" >
-                        <p:column>
-                            <p:outputLabel value="Mascotas" />
-                        </p:column>
-                    </f:facet>
-                    <p:panelGrid style="width: 40% ">
+    <h:body>
+        <ui:composition template="./TemplateVeterinaria.xhtml">
 
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="ID"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{mascotaBean.mascota.idMascota}" />
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="Nombre Mascota"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{mascotaBean.mascota.nombreMascota}" />
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="Nombre Dueño"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{mascotaBean.mascota.nombreCliente}"   />
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>
-                                <p:outputLabel value="Raza"/>
-                            </p:column>
-                            <p:column>
-                                <p:inputText value="#{mascotaBean.mascota.raza}"  />
-                            </p:column>
-                        </p:row>
-                    </p:panelGrid>
+            <ui:define name="content">
+                <p:growl id="msj" autoUpdate="true" />
+                <div align="center">
+                    <h:form id="formMascota">
+                        <p:panel id="panelMascota" style="width: 40%">
+                            <f:facet name="header" >
+                                <p:column>
+                                    <p:outputLabel value="Mascotas" />
+                                </p:column>
+                            </f:facet>
+                            <p:panelGrid style="width: 40% ">
 
-                    <p:commandButton value="Registrar" action="#{mascotaBean.guardar()}" update=":formData:dataTable,:formMascota" />
-                    <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":formMascota"/>
-                </p:panel>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="ID"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{mascotaBean.mascota.idMascota}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Nombre Mascota"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{mascotaBean.mascota.nombreMascota}" />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Nombre Dueño"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{mascotaBean.mascota.nombreCliente}"   />
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column>
+                                        <p:outputLabel value="Raza"/>
+                                    </p:column>
+                                    <p:column>
+                                        <p:inputText value="#{mascotaBean.mascota.raza}"  />
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
 
-            </h:form>
+                            <p:commandButton value="Registrar" action="#{mascotaBean.guardar()}" update=":formData:dataTable,:formMascota" />
+                            <p:commandButton value="Nuevo" action="#{mascotaBean.limpiar()}" update=":formMascota"/>
+                            <p:commandButton value="Actualizar" action="#{mascotaBean.actualizar()}" update=":formMascota,:formData:dataTable"/>
+                        </p:panel>
 
-            <h:form id="formData">
+                    </h:form>
 
-                <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" id="dataTable" var="mascota" value="#{mascotaBean.listar()}" style="width: 40%">
-                    <p:ajax event="rowSelect" update=":formMascota"/>
-                    <p:column headerText="Codigo">
-                        <p:outputLabel value="#{mascota.idMascota}" />
-                    </p:column>
-                    <p:column headerText="Mascota">
-                        <p:outputLabel value="#{mascota.nombreMascota}" />
-                    </p:column>
-                    <p:column headerText="Cliente">
-                        <p:outputLabel value="#{mascota.nombreCliente}" />
-                    </p:column>
-                    <p:column headerText="Raza">
-                        <p:outputLabel value="#{mascota.raza}" />
-                    </p:column>
-                    <p:column>
-                        <p:commandButton value="Eliminar" action="#{mascotaBean.eliminar(codigo)}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+                    <h:form id="formData">
 
-        </div>
-    </body>
+                        <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" id="dataTable" var="mascota" value="#{mascotaBean.listar()}" style="width: 40%">
+                            <p:ajax event="rowSelect" update=":formMascota"/>
+                            <p:column headerText="Codigo">
+                                <p:outputLabel value="#{mascota.idMascota}" />
+                            </p:column>
+                            <p:column headerText="Mascota">
+                                <p:outputLabel value="#{mascota.nombreMascota}" />
+                            </p:column>
+                            <p:column headerText="Cliente">
+                                <p:outputLabel value="#{mascota.nombreCliente}" />
+                            </p:column>
+                            <p:column headerText="Raza">
+                                <p:outputLabel value="#{mascota.raza}" />
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Eliminar" action="#{mascotaBean.eliminar()}" update=":formData:dataTable,:formMascota" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
 </html>

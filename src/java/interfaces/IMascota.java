@@ -16,5 +16,6 @@ public interface IMascota {
     
     public abstract boolean guardarMascota(Mascota mascota);
     public abstract ArrayList<Mascota> listarMascota();
-    
+    public abstract boolean eliminarMascota(Mascota mascota);
+    public abstract boolean actualizarMascota(Mascota mascota);
 }
